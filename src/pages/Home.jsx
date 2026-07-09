@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useLayoutEffect } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { services } from '../data/servicesData';
 import doctorImg from '../assets/doctor.jpg';
 import vaccineImg from '../assets/vaccine.jpg';
-import iconWhatsapp from '../assets/icon_whatsapp.png';
-import iconFacebook from '../assets/icon_facebook.png';
-import iconGoogleMap from '../assets/icon_googlemap.png';
-import iconInstagram from '../assets/icon_instagram.png';
 
 const HEADER_OFFSET = 80;
 
@@ -20,18 +17,26 @@ export function smoothScrollTo(targetId) {
 export function Home({ setIsModalOpen }) {
   const location = useLocation();
 
-  useEffect(() => {
-    // Handle scroll to section if hash is present
-    if (location.hash) {
-      const targetId = location.hash.replace('#', '');
-      const timer = setTimeout(() => {
-        smoothScrollTo(targetId);
-      }, 150);
-      return () => clearTimeout(timer);
+  useLayoutEffect(() => {
+    // Handle scroll to section if state or hash is present
+    const scrollToSection = location.state?.scrollTo || (location.hash ? location.hash.replace('#', '') : null);
+    if (scrollToSection) {
+      const el = document.getElementById(scrollToSection);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const absoluteTop = rect.top + window.pageYOffset - HEADER_OFFSET;
+        const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo({ top: absoluteTop, behavior: 'auto' });
+        document.documentElement.style.scrollBehavior = originalScrollBehavior;
+      }
     } else {
+      const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
       window.scrollTo(0, 0);
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
     }
-  }, [location.hash]);
+  }, [location.hash, location.state]);
 
   useEffect(() => {
     // FAQ Click toggling
@@ -321,46 +326,18 @@ export function Home({ setIsModalOpen }) {
             <p>Every child is unique. Our services are tailored to meet the specific developmental, preventive, and medical needs of children at every stage of growth.</p>
           </div>
           <div className="svc-grid">
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-baby-carriage"></i></div>
-              <h3>Well-Baby Check-ups</h3>
-              <p>Regular developmental monitoring from birth — tracking growth milestones, weight, height, and overall health at every stage.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-vaccine"></i></div>
-              <h3>Vaccinations &amp; Immunizations</h3>
-              <p>Complete IAP vaccine schedule for newborns through adolescents, with digital records and timely reminders.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-thermometer"></i></div>
-              <h3>Fever &amp; Infection Treatment</h3>
-              <p>Accurate diagnosis and targeted treatment of bacterial, viral, and respiratory infections with rapid recovery protocols.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-heart-rate-monitor"></i></div>
-              <h3>Newborn Care</h3>
-              <p>Specialised neonatal consultations, breastfeeding guidance, jaundice monitoring, and new-parent support from day one.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-salad"></i></div>
-              <h3>Nutrition &amp; Growth Counseling</h3>
-              <p>Personalised dietary guidance, growth chart monitoring, and nutritional advice to ensure optimal physical development.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-brain"></i></div>
-              <h3>Development Screening</h3>
-              <p>Comprehensive assessment of cognitive, motor, speech, and behavioural milestones with early intervention guidance.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-device-mobile-message"></i></div>
-              <h3>Teleconsultation</h3>
-              <p>Convenient video or phone consultations for minor concerns, follow-ups, and parent queries — from the comfort of home.</p>
-            </div>
-            <div className="svc-card fade-in">
-              <div className="svc-icon"><i className="ti ti-stethoscope"></i></div>
-              <h3>General Paediatric Care</h3>
-              <p>Treatment for rashes, allergies, digestive issues, ENT concerns, and all general childhood ailments with compassionate care.</p>
-            </div>
+            {services.map((svc) => (
+              <Link
+                to={`/services/${svc.slug}`}
+                key={svc.slug}
+                className="svc-card fade-in"
+                style={{ textDecoration: 'none', color: 'inherit', display: 'block', cursor: 'pointer' }}
+              >
+                <div className="svc-icon"><i className={svc.iconClass}></i></div>
+                <h3>{svc.title}</h3>
+                <p>{svc.shortDesc}</p>
+              </Link>
+            ))}
           </div>
           <div style={{textAlign: 'center', marginTop: '48px', paddingTop: '12px'}} className="fade-in">
             <a href="#!" onClick={(e) => { e.preventDefault(); setIsModalOpen(true); }} className="btn btn-amber btn-lg"><i className="ti ti-calendar-plus"></i> Schedule Your Visit</a>
@@ -403,14 +380,14 @@ export function Home({ setIsModalOpen }) {
             <p style={{color: 'rgba(255,255,255,.6)', maxWidth: '520px', margin: '0 auto'}}>Stay updated with our latest health tips, clinic moments, and child care advice.</p>
           </div>
           <div className="grid-3 fade-in" style={{marginTop: '48px'}}>
-            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '540px', position: 'relative'}}>
-              <iframe src="https://www.instagram.com/reel/DRWOaBWEcF6/embed" style={{width: '100%', height: '100%', border: 'none'}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
+            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '460px', position: 'relative'}}>
+              <iframe src="https://www.instagram.com/reel/DRWOaBWEcF6/embed" style={{width: '100%', height: '540px', border: 'none', position: 'absolute', top: 0, left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
             </div>
-            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '540px', position: 'relative'}}>
-              <iframe src="https://www.instagram.com/reel/DR9BJ4tka6m/embed" style={{width: '100%', height: '100%', border: 'none'}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
+            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '460px', position: 'relative'}}>
+              <iframe src="https://www.instagram.com/reel/DR9BJ4tka6m/embed" style={{width: '100%', height: '540px', border: 'none', position: 'absolute', top: 0, left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
             </div>
-            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '540px', position: 'relative'}}>
-              <iframe src="https://www.instagram.com/reel/DQEAbdUkRSZ/embed" style={{width: '100%', height: '100%', border: 'none'}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
+            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '460px', position: 'relative'}}>
+              <iframe src="https://www.instagram.com/reel/DQEAbdUkRSZ/embed" style={{width: '100%', height: '540px', border: 'none', position: 'absolute', top: 0, left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
             </div>
           </div>
           <div style={{textAlign: 'center', marginTop: '48px'}} className="fade-in">

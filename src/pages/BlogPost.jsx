@@ -5,7 +5,7 @@ import { SEO } from '../components/SEO'
 import { blogPosts, getPostBySlug } from '../data/blogPosts'
 import '../blog.css'
 
-export function BlogPost() {
+export function BlogPost({ setIsModalOpen }) {
   const { slug } = useParams()
   const post = getPostBySlug(slug)
 
@@ -49,12 +49,13 @@ export function BlogPost() {
         </div>
         <div className="mt-10 pt-8 border-t border-cream flex items-center justify-between flex-wrap gap-4">
           <p className="text-sm text-ink/60">Written by Dr. Piyush Agarwal, Pediatrician</p>
-          <Link
-            to="/?book=true"
-            className="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-medium px-5 py-2.5 rounded-full"
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-medium px-5 py-2.5 rounded-full cursor-pointer"
+            style={{ border: 'none' }}
           >
             Book Appointment <ArrowRight size={16} aria-hidden="true" />
-          </Link>
+          </button>
         </div>
         {relatedPosts.length > 0 && (
           <div className="mt-14">

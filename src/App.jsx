@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { Routes, Route, Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Home, smoothScrollTo } from './pages/Home';
 import { BlogList } from './pages/BlogList';
 import { BlogPost } from './pages/BlogPost';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { TermsOfUse } from './pages/TermsOfUse';
+import { ServiceDetail } from './pages/ServiceDetail';
 import iconWhatsapp from './assets/icon_whatsapp.png';
 import iconFacebook from './assets/icon_facebook.png';
 import iconGoogleMap from './assets/icon_googlemap.png';
@@ -12,6 +15,7 @@ import './App.css';
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [appointmentType, setAppointmentType] = useState('');
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,14 +24,22 @@ function App() {
   // Open booking modal if query parameter ?book=true is present
   useEffect(() => {
     if (searchParams.get('book') === 'true') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsModalOpen(true);
+      const typeParam = searchParams.get('type');
+      if (typeParam) {
+        setAppointmentType(typeParam);
+      }
     }
   }, [searchParams]);
 
   // Scroll to top on page transitions (if no hash)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!location.hash) {
+      const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
       window.scrollTo(0, 0);
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
     }
   }, [location.pathname]);
 
@@ -60,7 +72,7 @@ function App() {
     if (location.pathname === '/') {
       smoothScrollTo(targetId);
     } else {
-      navigate(`/#${targetId}`);
+      navigate('/', { state: { scrollTo: targetId } });
     }
     closeMobileMenu();
   };
@@ -119,7 +131,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home setIsModalOpen={setIsModalOpen} />} />
           <Route path="/blog" element={<BlogList />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/blog/:slug" element={<BlogPost setIsModalOpen={setIsModalOpen} />} />
+          <Route path="/services/:slug" element={<ServiceDetail setIsModalOpen={setIsModalOpen} setAppointmentType={setAppointmentType} />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfUse />} />
         </Routes>
       </main>
 
@@ -171,13 +186,10 @@ function App() {
           <div className="footer-bottom">
             <p>© 2026 Dr. Piyush Pediatric Clinic, Hyderabad. All rights reserved.</p>
             <div className="footer-bottom-links">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Use</a>
+              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/terms">Terms of Use</Link>
               <a href="#contact" className="nav-scroll" data-target="contact" onClick={(e) => handleNavLinkClick(e, 'contact')}>Contact Us</a>
             </div>
-          </div>
-          <div className="footer-disclaimer">
-            <p>This website is for informational purposes only and does not constitute medical advice. In a medical emergency, please call 108 or visit the nearest hospital immediately. Dr. Piyush Agarwal is registered with the Telangana State Medical Council (Reg. No. TSMC/FMR/15004).</p>
           </div>
         </div>
       </footer>
@@ -192,11 +204,11 @@ function App() {
 
       {/* ─── BOOKING MODAL ─────────────────────────────────────────── */}
       {isModalOpen && (
-        <div className="modal-overlay" onClick={() => { setIsModalOpen(false); setIsFormSubmitted(false); navigate(location.pathname); }}>
+        <div className="modal-overlay" onClick={() => { setIsModalOpen(false); setIsFormSubmitted(false); setAppointmentType(''); if (searchParams.get('book') === 'true') { navigate(location.pathname, { replace: true }); } }}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>Book an Appointment</h3>
-              <button className="modal-close" onClick={() => { setIsModalOpen(false); setIsFormSubmitted(false); navigate(location.pathname); }}>&times;</button>
+              <button className="modal-close" onClick={() => { setIsModalOpen(false); setIsFormSubmitted(false); setAppointmentType(''); if (searchParams.get('book') === 'true') { navigate(location.pathname, { replace: true }); } }}>&times;</button>
             </div>
             {isFormSubmitted ? (
               <p className="success-message" style={{ padding: '24px', textAlign: 'center', color: '#16a34a', fontSize: '18px', fontWeight: '500', lineHeight: '1.5' }}>
@@ -215,7 +227,7 @@ function App() {
                   });
                   if (response.ok) setIsFormSubmitted(true);
                   else alert('Oops! There was a problem submitting your form');
-                } catch (error) {
+                } catch {
                   alert('Oops! There was a problem submitting your form');
                 }
               }}>
@@ -250,7 +262,12 @@ function App() {
                 </div>
                 <div className="form-group full-width">
                   <label>Appointment Type</label>
-                  <select name="appointment_type" required>
+                  <select 
+                    name="appointment_type" 
+                    value={appointmentType} 
+                    onChange={(e) => setAppointmentType(e.target.value)} 
+                    required
+                  >
                     <option value="">Select Appointment Type</option>
                     <option value="General Checkup">General Checkup</option>
                     <option value="Vaccination">Vaccination</option>
