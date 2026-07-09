@@ -27,12 +27,16 @@ export function Home({ setIsModalOpen }) {
         const absoluteTop = rect.top + window.pageYOffset - HEADER_OFFSET;
         const originalScrollBehavior = document.documentElement.style.scrollBehavior;
         document.documentElement.style.scrollBehavior = 'auto';
+        // Force layout flush
+        document.documentElement.offsetHeight;
         window.scrollTo({ top: absoluteTop, behavior: 'auto' });
         document.documentElement.style.scrollBehavior = originalScrollBehavior;
       }
     } else {
       const originalScrollBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = 'auto';
+      // Force layout flush
+      document.documentElement.offsetHeight;
       window.scrollTo(0, 0);
       document.documentElement.style.scrollBehavior = originalScrollBehavior;
     }

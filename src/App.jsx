@@ -38,6 +38,8 @@ function App() {
     if (!location.hash) {
       const originalScrollBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = 'auto';
+      // Force layout flush
+      document.documentElement.offsetHeight;
       window.scrollTo(0, 0);
       document.documentElement.style.scrollBehavior = originalScrollBehavior;
     }

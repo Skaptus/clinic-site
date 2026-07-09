@@ -24,9 +24,7 @@
   --shadow:0 4px 32px rgba(162,119,179,0.12);
   --shadow-lg:0 12px 48px rgba(162,119,179,0.18);
   font-family:'Plus Jakarta Sans',sans-serif;
-  scroll-behavior:smooth;
 }
-html{scroll-behavior:smooth}
 body{color:var(--txt);background:var(--white);overflow-x:hidden}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
