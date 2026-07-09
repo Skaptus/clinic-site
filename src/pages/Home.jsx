@@ -384,14 +384,14 @@ export function Home({ setIsModalOpen }) {
             <p style={{color: 'rgba(255,255,255,.6)', maxWidth: '520px', margin: '0 auto'}}>Stay updated with our latest health tips, clinic moments, and child care advice.</p>
           </div>
           <div className="grid-3 fade-in" style={{marginTop: '48px'}}>
-            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '460px', position: 'relative'}}>
-              <iframe src="https://www.instagram.com/reel/DRWOaBWEcF6/embed" style={{width: '100%', height: '540px', border: 'none', position: 'absolute', top: 0, left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
+            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#000', height: '400px', position: 'relative'}}>
+              <iframe src="https://www.instagram.com/reel/DRWOaBWEcF6/embed" style={{width: '100%', height: '520px', border: 'none', position: 'absolute', top: '-60px', left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
             </div>
-            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '460px', position: 'relative'}}>
-              <iframe src="https://www.instagram.com/reel/DR9BJ4tka6m/embed" style={{width: '100%', height: '540px', border: 'none', position: 'absolute', top: 0, left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
+            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#000', height: '400px', position: 'relative'}}>
+              <iframe src="https://www.instagram.com/reel/DR9BJ4tka6m/embed" style={{width: '100%', height: '520px', border: 'none', position: 'absolute', top: '-60px', left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
             </div>
-            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#fff', height: '460px', position: 'relative'}}>
-              <iframe src="https://www.instagram.com/reel/DQEAbdUkRSZ/embed" style={{width: '100%', height: '540px', border: 'none', position: 'absolute', top: 0, left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
+            <div className="reel-wrap" style={{borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,.5)', background: '#000', height: '400px', position: 'relative'}}>
+              <iframe src="https://www.instagram.com/reel/DQEAbdUkRSZ/embed" style={{width: '100%', height: '520px', border: 'none', position: 'absolute', top: '-60px', left: 0}} scrolling="no" allowTransparency="true" allow="encrypted-media"></iframe>
             </div>
           </div>
           <div style={{textAlign: 'center', marginTop: '48px'}} className="fade-in">
