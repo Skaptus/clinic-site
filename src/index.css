@@ -1,0 +1,225 @@
+/* ─── RESET & ROOT ─────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pur:#A277B3;
+  --pur2:#8A5F9B;
+  --pur3:#6D4A7C;
+  --pur-lt:#EDE4F1;
+  --pur-xlt:#F7F2FA;
+  --amb:#E4A648;
+  --amb2:#C8891E;
+  --amb-lt:#FBF0D8;
+  --crm:#EADDBE;
+  --crm2:#D9C89A;
+  --crm3:#C4A96B;
+  --crm-lt:#FAF6ED;
+  --txt:#1C1028;
+  --txt2:#4A3860;
+  --txt3:#7A6890;
+  --white:#FFFFFF;
+  --nav-h:74px;
+  --radius:14px;
+  --radius-lg:22px;
+  --shadow:0 4px 32px rgba(162,119,179,0.12);
+  --shadow-lg:0 12px 48px rgba(162,119,179,0.18);
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{color:var(--txt);background:var(--white);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ─── TYPOGRAPHY ───────────────────────────────────────────── */
+.display{font-family:'Playfair Display',serif}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.2}
+h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700}
+h2{font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:600}
+h3{font-size:1.25rem;font-weight:600}
+p{line-height:1.75;color:var(--txt2)}
+
+/* ─── UTILITY ──────────────────────────────────────────────── */
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.section{padding:96px 0}
+.section-sm{padding:64px 0}
+.text-center{text-align:center}
+.tag{display:inline-block;background:var(--pur-lt);color:var(--pur3);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:40px;margin-bottom:16px}
+.tag.amb{background:var(--amb-lt);color:var(--amb2)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:15px;padding:15px 32px;border-radius:50px;cursor:pointer;transition:all .25s ease;border:none;text-decoration:none}
+.btn-primary{background:var(--pur);color:var(--white);box-shadow:0 4px 20px rgba(162,119,179,.35)}
+.btn-primary:hover{background:var(--pur2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(162,119,179,.42)}
+.btn-amber{background:var(--amb);color:var(--white);box-shadow:0 4px 20px rgba(228,166,72,.35)}
+.btn-amber:hover{background:var(--amb2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(228,166,72,.42)}
+.btn-outline{background:transparent;color:var(--pur);border:2px solid var(--pur)}
+.btn-outline:hover{background:var(--pur-lt);transform:translateY(-2px)}
+.btn-lg{padding:18px 42px;font-size:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+/* fade in on scroll */
+.fade-in{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.fade-in-left{opacity:0;transform:translateX(-32px);transition:opacity .65s ease,transform .65s ease}
+.fade-in-left.visible{opacity:1;transform:translateX(0)}
+.fade-in-right{opacity:0;transform:translateX(32px);transition:opacity .65s ease,transform .65s ease}
+.fade-in-right.visible{opacity:1;transform:translateX(0)}
+
+
+/* --- Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--pur);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--txt3);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: var(--txt);
+}
+
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+.modal-form .form-group {
+  margin-bottom: 14px;
+}
+
+.modal-form .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-form button[type="submit"] {
+  grid-column: 1 / -1;
+}
+
+.modal-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--txt2);
+  margin-bottom: 8px;
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--txt);
+  transition: border-color 0.2s;
+}
+
+.modal-form textarea {
+  resize: vertical;
+}
+
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+  outline: none;
+  border-color: var(--pur);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Modal Styles */
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 12px;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    border-radius: var(--radius);
+    max-height: 95vh;
+  }
+
+  .modal-header {
+    margin-bottom: 18px;
+  }
+
+  .modal-header h3 {
+    font-size: 20px;
+  }
+
+  .modal-form {
+    grid-template-columns: 1fr; /* Switch to single-column layout on mobile */
+    gap: 0;
+  }
+
+  .modal-form .form-group {
+    margin-bottom: 12px;
+  }
+
+  .modal-form input,
+  .modal-form select,
+  .modal-form textarea {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .modal-form button[type="submit"] {
+    margin-top: 6px;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  /* Make country-code select a bit narrower on mobile to give phone input more space */
+  .modal-form select[name="country_code"] {
+    width: 85px !important;
+    padding: 10px 6px !important;
+  }
+}
+

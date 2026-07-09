@@ -1,0 +1,337 @@
+/* src/blog.css */
+/* Maps Tailwind utilities used in BlogList and BlogPost to vanilla CSS */
+
+.max-w-6xl {
+  max-width: 980px;
+}
+
+.max-w-3xl {
+  max-width: 768px;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.px-4 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.py-16 {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.mb-12 {
+  margin-bottom: 48px;
+}
+
+.mb-8 {
+  margin-bottom: 32px;
+}
+
+.mb-6 {
+  margin-bottom: 24px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.mt-8 {
+  margin-top: 32px;
+}
+
+.mt-10 {
+  margin-top: 40px;
+}
+
+.mt-14 {
+  margin-top: 56px;
+}
+
+.pt-8 {
+  padding-top: 32px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-heading {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-ink {
+  color: var(--txt);
+}
+
+.text-ink\/60 {
+  color: rgba(28, 16, 40, 0.6);
+}
+
+.text-ink\/50 {
+  color: rgba(28, 16, 40, 0.5);
+}
+
+.text-ink\/75 {
+  color: rgba(28, 16, 40, 0.75);
+}
+
+.text-primary {
+  color: var(--pur);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.max-w-xl {
+  max-width: 576px;
+}
+
+.grid {
+  display: grid;
+}
+
+.gap-6 {
+  gap: 24px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
+.bg-white {
+  background: var(--white);
+}
+
+.border {
+  border: 1px solid rgba(162,119,179,0.15);
+}
+
+.border-cream {
+  border-color: var(--crm);
+}
+
+.border-t {
+  border-top: 1px solid rgba(162,119,179,0.15);
+}
+
+.rounded-card {
+  border-radius: var(--radius-lg);
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.transition-shadow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover\:shadow-md:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.hover\:shadow-sm:hover {
+  box-shadow: var(--shadow);
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+.bg-primary\/10 {
+  background: var(--pur-lt);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.group-hover\:scale-105 {
+  transition: transform 0.3s ease;
+}
+
+.group:hover .group-hover\:scale-105 {
+  transform: scale(1.05);
+}
+
+.p-5 {
+  padding: 16px;
+}
+
+.p-4 {
+  padding: 16px;
+}
+
+.text-xs {
+  font-size: 12px;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.leading-snug {
+  line-height: 1.35;
+}
+
+.leading-relaxed {
+  line-height: 1.7;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 3;
+  font-size: 13.5px !important;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-15 {
+  gap: 6px;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
+}
+
+.bg-accent {
+  background: var(--amb);
+}
+
+.hover\:bg-accent-dark:hover {
+  background: var(--amb2);
+}
+
+.px-5 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.py-25 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.bg-cream\/30 {
+  background: rgba(234, 221, 190, 0.25);
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+/* Responsive grid styles */
+@media (min-width: 640px) {
+  .sm\:px-6 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .sm\:py-24 {
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+  .sm\:py-20 {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sm\:text-4xl {
+    font-size: 2.2rem;
+  }
+  .sm\:text-3xl {
+    font-size: 1.8rem;
+  }
+  .sm\:text-2xl {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:text-4xl {
+    font-size: 2.2rem;
+  }
+}
+
+/* Typography elements inside the rich content */
+.prose-custom p {
+  color: var(--txt2);
+  line-height: 1.75;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.prose-custom h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--txt);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+/* Card title overrides for the blog list page */
+.grid h2.font-heading {
+  font-size: 1.15rem !important;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
