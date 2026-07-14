@@ -33,9 +33,9 @@ function App() {
     }
   }, [searchParams]);
 
-  // Scroll to top on page transitions (if no hash)
+  // Scroll to top on page transitions (if no hash and no custom scrollTo state)
   useLayoutEffect(() => {
-    if (!location.hash) {
+    if (!location.hash && !location.state?.scrollTo) {
       const originalScrollBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = 'auto';
       // Force layout flush
@@ -43,10 +43,14 @@ function App() {
       window.scrollTo(0, 0);
       document.documentElement.style.scrollBehavior = originalScrollBehavior;
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.hash, location.state]);
 
   // Manage header background and mobile hamburger menu
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
     const header = document.getElementById('main-header');
     const handleScroll = () => {
       if (header) header.classList.toggle('scrolled', window.pageYOffset > 30);
